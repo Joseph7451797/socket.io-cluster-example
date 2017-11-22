@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn1">Click me to connect.</button>
+    <p id="demo"></p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script>
+        var btn = document.getElementById('btn1');
+        btn.addEventListener('click', function() {
+            var socket = io.connect('http://nodecluster.test/ws', {
+                reconnection: false
+            });
+            socket.on('connect', function() {
+                socket.emit('connect:message', {
+                    msg: 'hello server'
+                });
+                socket.on('port:message', function(d) {
+                    console.log('port:message: ' + d);
+                    document.getElementById('demo').textContent = 'Port: ' + d;
+                });
+            });
+
+            socket.on('error',function(err){
+                console.log(err);
+            })
+        });
+    </script>
+</body>
+</html>
