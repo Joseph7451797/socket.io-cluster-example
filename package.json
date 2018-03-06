@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.2",
-    "pm2": "^2.7.2",
+    "pm2": "^2.10.1",
     "socket.io": "^2.0.4"
   }
 }
